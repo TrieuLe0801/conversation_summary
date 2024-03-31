@@ -1,5 +1,5 @@
 # Set the check directory
-CHECK_DIR := ./
+CHECK_DIR := finetuning/ utils/
 
 quality:
 		black --check $(CHECK_DIR)

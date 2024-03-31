@@ -1,8 +1,20 @@
 [tool.black]
-line - length = 79
+line-length = 100
+target-version = ['py37']
 
-[tool.isort]
-include_trailing_comma = true
-line_length = 79
-multi_line_output = 3
-profile = "black"
+include = '\.pyi?$'
+
+exclude = '''
+(
+      __pycache__
+    | \btutorials\b
+    | \bbuild\b
+    | \.git
+    | \.mypy_cache
+    | \.pytest_cache
+    | \.vscode
+    | \.venv
+    | \bdist\b
+    | \bdoc\b
+)
+'''
