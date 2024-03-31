@@ -33,11 +33,23 @@ def create_conversation_dataset_hf(
             "topic": d.get("topic", ""),
         }
         data_list.append(dictionary)
-    with open(
-        os.path.join(dir_path, f"{dataset_type}.json"), "w"
-    ) as json_file:
+    with open(os.path.join(dir_path, f"{dataset_type}.json"), "w") as json_file:
         json.dump(data_list, json_file, indent=4, ensure_ascii=False)
     return data_list
+
+
+def tokenize_function(example, tokenizer: object):
+    start_prompt = example.get("instruction", "Summarize the following conversation") + "\n\n"
+    end_prompt = "\n\nSummary: "
+    prompt = [start_prompt + dialogue + end_prompt for dialogue in example["dialogue"]]
+    example["input_ids"] = tokenizer(
+        prompt, padding="max_length", truncation=True, return_tensors="pt"
+    ).input_ids
+    example["labels"] = tokenizer(
+        example["summary"], padding="max_length", truncation=True, return_tensors="pt"
+    ).input_ids
+
+    return example
 
 
 if __name__ == "__main__":
