@@ -1,0 +1,10 @@
+transformers
+torch
+black
+flake8
+isort
+datasets
+numpy
+pandas
+evaluate
+peft
